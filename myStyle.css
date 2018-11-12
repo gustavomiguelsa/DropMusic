@@ -113,11 +113,13 @@ body {
 .midnav a:hover {
   background-color: #ddd;
   color: black;
+  cursor: pointer;
 }
 
 .midnav a2:hover {
   background-color: #ddd;
   color: black;
+  cursor: pointer;
 }
 
 
