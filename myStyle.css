@@ -1,0 +1,35 @@
+h1 {
+	font-size: 40pt;
+	font-family: "Times New Roman", Times, serif;
+	color: red;
+}
+
+h2 {
+	font-size: 13pt;	
+	font-style: oblique;
+}
+
+a {
+	font-style: normal;
+}
+
+body {
+	border-style: solid;
+	border-width: 14px;
+	background-color: aqua;
+	size: 100%;
+	font-size: 20pt;
+}
+
+p {
+	font-size: 11pt;
+	size: 100%;
+	text-indent: 4px;
+}
+
+div.jumbotron {
+	background-color: LightGray;
+	border-style: solid;
+	border-width: 5px;
+	border-color: Magenta;
+}
