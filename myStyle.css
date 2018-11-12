@@ -35,7 +35,7 @@ body {
 .topnav .search-container {
   float: right;
   position: absolute;
-  top: 35px;
+  top: 38px;
   left: 300px;
 }
 
@@ -81,3 +81,54 @@ body {
     border: 10px solid #ccc;  
   }
 }
+
+
+
+
+.midnav {
+  overflow: hidden;
+  background-color: #e9e9e9;
+}
+
+.midnav a {
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 40px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.midnav a2 {
+  float: right;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 40px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.midnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.midnav a2:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+
+.midnav a.active {
+  background-color: #2196F3;
+  color: white;
+}
+
+.midnav a2.active {
+  background-color: #2196F3;
+  color: white;
+}
+
+
