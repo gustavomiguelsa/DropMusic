@@ -1,11 +1,23 @@
 
+/**************************************************************************************************/
 
 * {box-sizing: border-box;}
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+
+  background-color: lightblue;
+  font-family:      TradeGothic, sans-serif;
+    margin-left:                       -512px;
+    margin-top:                        -384px;
+    position:                        absolute;
+    height:                             768px;
+    width:                             1024px;
+    left:                                 50%;
+    top:                                  70%;
 }
+
+/**************************************************************************************************/
 
 .topnav {
   overflow: hidden;
@@ -45,7 +57,7 @@ body {
   font-size: 17px;
   border: none;
   height: 35px;
-  width: 850px;
+  width: 600px;
 }
 
 .topnav .search-container button {
@@ -82,12 +94,12 @@ body {
   }
 }
 
-
-
+/**************************************************************************************************/
 
 .midnav {
   overflow: hidden;
   background-color: #e9e9e9;
+  margin-top: 10px;
 }
 
 .midnav a {
@@ -133,6 +145,7 @@ body {
   color: white;
 }
 
+/**************************************************************************************************/
 
 .dropdown {
     float: left;
@@ -175,3 +188,8 @@ body {
 .dropdown:hover .dropdown-content {
     display: block;
 }
+
+/**************************************************************************************************/
+
+
+
