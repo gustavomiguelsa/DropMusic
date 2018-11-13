@@ -2,6 +2,12 @@
 error_reporting(E_ALL);
 ini_set("display_errors", 1);
 static $username = null;
+/* Change when wanted. Has effect on connections*/
+$servername = "localhost";
+$username = "username";
+$password = "password";
+$dbname = "myDB";
+
 if( isset($_POST['submit']) )
 {
 	$counter = 0;
@@ -61,4 +67,10 @@ else
 		}
 	}
 }
+/**************************************************************************************************/
+/* For LOGIN: */
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+$conn->close();
 ?>
