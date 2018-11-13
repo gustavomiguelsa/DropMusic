@@ -56,7 +56,7 @@ body {
   margin-top: 8px;
   font-size: 17px;
   border: none;
-  height: 35px;
+  height: 45px;
   width: 600px;
 }
 
@@ -69,8 +69,8 @@ body {
   font-size: 17px;
   border: none;
   cursor: pointer;
-  width: 35px;
-  height: 35px;
+  width: 45px;
+  height: 45px;
 }
 
 .topnav .search-container button:hover {
