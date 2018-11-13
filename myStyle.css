@@ -112,23 +112,7 @@ body {
   font-size: 17px;
 }
 
-.midnav a2 {
-  float: right;
-  display: block;
-  color: black;
-  text-align: center;
-  padding: 14px 40px;
-  text-decoration: none;
-  font-size: 17px;
-}
-
 .midnav a:hover, .dropdown:hover .dropbtn{
-  background-color: #ddd;
-  color: black;
-  cursor: pointer;
-}
-
-.midnav a2:hover {
   background-color: #ddd;
   color: black;
   cursor: pointer;
@@ -136,11 +120,6 @@ body {
 
 
 .midnav a.active {
-  background-color: #2196F3;
-  color: white;
-}
-
-.midnav a2.active {
   background-color: #2196F3;
   color: white;
 }
