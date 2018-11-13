@@ -164,7 +164,8 @@ body {
     position: absolute;
     z-index: 3;
     left: 380px;
-    padding-top: 1px;
+	
+
 }
 
 .dropdown .dropbtn {
@@ -176,40 +177,41 @@ body {
     background-color: inherit;
     font-family: inherit;
     margin: 0;
-    position: absolute;
-    z-index: 3;
+    position: relative;
+    z-index: 4;
+
 }
 
-.dropdown-content {
+.dropdown .dropbtn .dropdown-content {
     display: none;
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    position: relative;
-    z-index: 3;
+    position: inherit;
+    z-index: 4;
 }
 
-.dropdown-content a {
+.dropdown .dropbtn .dropdown-content a {
     float: none;
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
     text-align: left;
-    position: relative;
-    z-index: 3;
+    position: inherit;
+    z-index: 4;
 }
 
-.dropdown-content a:hover {
+.dropdown .dropbtn .dropdown-content a:hover {
     background-color: #ddd;
-    position: relative;
-    z-index: 3;
+    position: inherit;
+    z-index: 4;
 }
 
 .dropdown:hover .dropdown-content {
     display: block;
-    position: relative;
-    z-index: 3;
+    position: inherit;
+    z-index: 4;
 }
 
 /**************************************************************************************************/
