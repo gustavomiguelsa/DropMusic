@@ -1,5 +1,5 @@
 body{
-	background-color : black ;
+	background-color : white ;
 }
 
 #topNav{
@@ -21,17 +21,23 @@ body{
 .form-inline {
   width: -80px;
 }
-
+/* Space between search bar and search butto */
 .srch-marginl{
   margin-left: 180px;
 }
-
+/* Space between buttons*/
 .btn-marginl {
   margin-left: 10px;
 }
-
+/* Centering the register modal body */
 .reg-center {
   padding: 5px;
+  text-align: center;
+  margin:auto;
+}
+ /* Centering the login modal body */
+.log-center {
+  padding: 10px;
   text-align: center;
   margin:auto;
 }
