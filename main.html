@@ -1,166 +1,94 @@
 <!DOCTYPE html>
-<html>
+<html lang="eng">
 	<head>
-	  <title>DropMusic</title>
-	  <meta charset="utf-8"> 
-	  <meta name="viewport" content="width=device-width, initial-scale=1">
-	  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	  <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet"  type='text/css'>
-
-
-	  <link rel="stylesheet" type="text/css" href="myStyle.css">
+		<title>DropMusic</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="myStyle.css">
 	</head>
 
 	<body>
-		<!-- TOP NAVIGATION -->
-		<div class="topnav">
-			<a href="main.html"><img border="0" img src="logo.png" alt="logo" width="200" height="100"></a>
-			<div class="search-container">
-				<!-- FAZER O .php DAS PESQUISAS -->
-				<form class="searching" action="/search.php">
-					<input type="text" placeholder="Search.." name="search">
-					<button type="submit"><i class="fa fa-search"></a></i></button>
-				</form>
-			</div>
-
-		</div>
-		<!-- END: TOP NAVIGATION -->
-	
-		<!-- MID NAVIGATION -->
-		<div class="midnav">
-			<a href="#home">Home</a>
-			<a href="#about">About</a>
-			<a href="#help">Help</a>
-	
-			<div class="dropdown">
-			  <button class="dropbtn">View</button>
-				<div class="dropdown-content">
-					<a href="#songs">Songs</a>
-					<a href="#albums">Albums</a>
-					<a href="#reviews">Reviews</a>
-					<a href="#playlists">Playlists</a>
-					<a href="#bands">Bands</a>
-					<a href="#musicians">Musicians</a>
-					<a href="#composers">Composers</a>
-				</div>
-			</div>
-
-			<a href="#login" id="login_button" style="float: right">Login</a>
-			<a href="#register" style="float: right">Register</a>
-
-			<!-- Bruno: Working on Login! -->
+		<div class="container" id="topNav">
 			
-			<!-- Working on login -->
-			<div class = "bg-modal">
-				<div class = "modal-contents">
-					<div class="close">+</div>
-				 	<img src="male.png" alt="">
-
-					<form action ="">
-						<input type="text" placeholder="Name">
-						<a href= "#" class=midnav">Ok!</a>
-					</form>
-				</div>
-			</div>
-		</div>
-
-		
-
-		<!-- END:MID NAVIGATION -->
-	
-		<!-- BOT NAVIGATION -->
-		<div class="botnav">
-			<!-- Table for Recently added -->
-			<!-- Fazer PHP para colocar as infos! --> <!-- Tamanho da tabela 10? -->
-			<table style="width:50%" >
-			<table style="float:left"> 
-			<caption><font size="5">Recently Added</font></caption>
-			  <tr>
-			    <th>Song</th>
-			    <th>User</th>
-			    <th>Date</th>
-			  </tr>
-			  <tr>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			  </tr>
-			  <tr>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			  </tr>
-			</table>
-			<!-- Table for Shows playing this week -->
-			<!-- Fazer PHP para colocar as infos! --> <!-- Tamanho da tabela 10? -->
-			<table style="width:50%" >
-			<table style="float:right"> 	
-			<caption><font size="5">Shows Playing This Week</font></caption>	
-			  <tr>
-			    <th>Show Name</th>
-			    <th>Band</th>
-			    <th>Date</th>
-			    <th>Location</th>
-			  </tr>
-			  <tr>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			  </tr>
-			  <tr>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			  </tr>
-			</table>
-
-			<table style="width:50%" >
-			<table style="float:left"> 
-			<caption><font size="5">Most Popular Playlists</font></caption>
-			  <tr>
-			    <th>Playlist</th>
-			    <th>Owner</th>
-			    <th>Users</th>
-			  </tr>
-			  <tr>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			  </tr>
-			  <tr>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			  </tr>
-			</table>
-
-			<table style="width:50%" >
-			<table style="float:right"> 	
-			<caption><font size="5">Born Today</font></caption>	
-			  <tr>
-			    <th>User</th>	
-			    <th>Musician</th>
-			    <th>Composer</th>
-			  </tr>
-			  <tr>
-			    <td></td>
-			    <td></td>
-			    <td></td>
-			  </tr>
-			  <tr>
-			    <td></td>
-			    <td></td>
-			    <td></td>	
-			  </tr>
-			</table>
+			<nav class="navbar navbar-expand-sm bg-light justify-content-center" id="navTop">
+				<a class="navbar-brand" href="main.html">
+					<img src="logo.png" alt="Logo">
+				</a>
+				
+				<form class="form-inline" action="">
+					<input class="form-control btn-marginl" type="text" placeholder="Search.." id="srch-term">
+					<button class="btn btn-primary" type="submit">Search</button>
+				</form>
+			</nav>
+			
+			<nav class="navbar navbar-expand-sm bg-light justify-content-center" id="navMid">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="#home">Home</a>
+					</li>	
+					<li class="nav-item">
+						<a class="nav-link" href="#about">About</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#help">Help</a>
+					</li>
+					<li class="nav-item dropdown">
+					  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+						View
+					  </a>
+					  <div class="dropdown-menu">
+						<a class="dropdown-item" href="#">Songs</a>
+						<a class="dropdown-item" href="#">Albums</a>
+						<a class="dropdown-item" href="#">Reviews</a>
+						<a class="dropdown-item" href="#">Playlists</a>
+						<a class="dropdown-item" href="#">Bands</a>
+						<a class="dropdown-item" href="#">Musicians</a>
+						<a class="dropdown-item" href="#">Composers</a>
+					  </div>
+					</li>
+				</ul>
+				<ul class="navbar-nav">
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+  Login
+</button>
+				</ul>
+			</nav>
+			
 		</div>
 		
 
-		
+		<!-- Login Modal -->
+		<div class="modal" id="myModal">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+
+		      <!-- Modal Header -->
+		      <div class="modal-header">
+			<h4 class="modal-title">Login</h4>
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+		      </div>
+
+		      <!-- Modal body -->
+		      <div class="modal-body">
+			<img class="img-fluid mx-auto d-block" src="user.png" alt="">
+			<form action="">
+				<input type="text" placeholder="Name">
+				<input type="email" placeholder="E-Mail">
+			</form>
+		      </div>
+
+		      <!-- Modal footer -->
+		      <div class="modal-footer">
+			<button type="button" class="btn btn-danger" data-dismiss="modal">Ok!</button>
+		      </div>
+
+		    </div>
+		  </div>
+		</div>
+
 	</body>
 </html>
-
