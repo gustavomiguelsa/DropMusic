@@ -11,33 +11,10 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="myStyle.css">
+		<script src="myJavaScript.js"></script>
 	</head>
-	<script>
-
-	function registerFunction(){
-		console.log("teste1");
-		var username_=document.getElementById("in_username_reg").value;
-		var birthday_=document.getElementById("in_ddn_reg").value;
-		console.log(username_);
-		console.log(birthday_);
-		$.ajax({
-			url:'/register.php',
-			type:'POST',
-			dataType: 'json',
-			data:{
-				b: birthday_,
-				u: username_
-			}
 
 
-		}).done(function(data){
-
-			console.log("teste2");			
-		});
-	}
-
-
-	</script>
 	<body>
 		<div class="container" id="topNav">
 			
