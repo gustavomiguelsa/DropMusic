@@ -19,9 +19,20 @@ body{
 }
 
 .form-inline {
-	width: -80px;
+  width: -80px;
 }
 
-.btn-marginl{
-	margin-left: 180px;
+.srch-marginl{
+  margin-left: 180px;
 }
+
+.btn-marginl {
+  margin-left: 10px;
+}
+
+.reg-center {
+  padding: 5px;
+  text-align: center;
+  margin:auto;
+}
+

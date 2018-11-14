@@ -3,6 +3,8 @@
 	<head>
 		<title>DropMusic</title>
 		<meta charset="utf-8">
+		<meta name="description" content="A uni project...">
+		<meta name="author" content="Bruno Ferreira and Gustavo Assunção">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -20,8 +22,8 @@
 				</a>
 				
 				<form class="form-inline" action="">
-					<input class="form-control btn-marginl" type="text" placeholder="Search.." id="srch-term">
-					<button class="btn btn-primary" type="submit">Search</button>
+					<input class="form-control srch-marginl" type="text" placeholder="Search.." id="srch-term">
+					<button class="btn btn-primary btn-marginl" type="submit">Search</button>
 				</form>
 			</nav>
 			
@@ -52,9 +54,13 @@
 					</li>
 				</ul>
 				<ul class="navbar-nav">
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
-  Login
+					<button type="button" class="btn btn-primary " data-toggle="modal" data-target="#RegisterModal">
+  Register
 </button>
+					<button type="button" class="btn btn-primary btn-marginl" data-toggle="modal" data-target="#LoginModal">
+  Login
+</button> 
+				
 				</ul>
 			</nav>
 			
@@ -62,7 +68,7 @@
 		
 
 		<!-- Login Modal -->
-		<div class="modal" id="myModal">
+		<div class="modal" id="LoginModal">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
 
@@ -75,9 +81,50 @@
 		      <!-- Modal body -->
 		      <div class="modal-body">
 			<img class="img-fluid mx-auto d-block" src="user.png" alt="">
+			<form action="" class="form-inline justify-content-center">
+				<input type="text" placeholder="Username" id="in_name">
+				<!-- <input type="email" placeholder="E-Mail"> -->
+			</form>
+		      </div>
+
+		      <!-- Modal footer -->
+		      <div class="modal-footer">
+			<button type="button" class="btn btn-danger" data-dismiss="modal">Ok!</button>
+		      </div>
+
+		    </div>
+		  </div>
+		</div>
+		
+		<!-- Register Modal -->
+		<div class="modal" id="RegisterModal">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+
+		      <!-- Modal Header -->
+		      <div class="modal-header">
+			<h4 class="modal-title">Register</h4>
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+		      </div>
+
+		      <!-- Modal body -->
+		      <div class="modal-body justify-content-center">
+			<img class="img-fluid mx-auto d-block" src="user.png" alt=""><br>
 			<form action="">
-				<input type="text" placeholder="Name">
-				<input type="email" placeholder="E-Mail">
+				<div class = "reg-center">
+					<label for="text">Username:</label>
+					<input type="text" placeholder="Username" id="in_name">
+				</div>
+				<div class ="reg-center">
+					<input type="radio" name="gender" value="male"> Male
+					<input type="radio" name="gender" value="female"> Female
+					<input type="radio" name="gender" value="other"> Other
+				</div>
+				<div class = "reg-center">
+					<label for="text">Birthday:</label>
+					<input type="date" placeholder="Birthday Date:" id="in_date">
+				</div>
+				
 			</form>
 		      </div>
 
