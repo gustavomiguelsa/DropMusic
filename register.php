@@ -5,8 +5,12 @@
 	error_reporting(E_ALL);
 	ini_set("display_errors", 1);
 	echo "Hello";
-	$d=$_POST["data"];
-	if(isset($_POST['data'])) {
+
+	if(isset($_POST['b']) and isset($_POST['u']) and isset($_POST['g'])){
+
+		$b=$_POST["b"];
+		$u=$_POST["u"];
+		$g=$_POST["g"];
 		$mysqli = new mysqli("titan.isr.uc.pt", "gustavomiguelsa", "G9_u7-s2", "dropmusic_db");
 		// check connection 
 		if ($mysqli->connect_errno) {
@@ -14,12 +18,10 @@
 		    exit();
 		}
 		//Build MySQL string
-		$query = "INSERT INTO utilizador (user_id,nome,is_editor,sexo,ddn) VALUES (DEFAULT, '$d[u]', 'TRUE', 'M', '$d[b]')";
+		$query = "INSERT INTO utilizador (user_id,nome,is_editor,sexo,ddn) VALUES (DEFAULT, '$u', 1, '$g', '$b')";
 	
-		$result = $mysqli->query($query);
-		echo $result->fetch_assoc();
+		$result = $mysqli->query($query) or die($mysqli->error);
 		$mysqli->close();
-
-		}
-
+		echo "<label>'$u'</label>";
+	}
 ?>	

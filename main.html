@@ -11,11 +11,92 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="myStyle.css">
-		<script src="myJavaScript.js"></script>
 	</head>
+	<script>
+	
+	/* Calls the register.php with the data given by the user */
+	function registerFunction(){
+		var username=document.getElementById("in_username_reg").value;
+		var birthday=document.getElementById("in_ddn_reg").value;
+		var gender="A";
+		if(document.getElementById('gender_Male').checked) {
+		  //Male radio button is checked
+			gender="M";
+		}
+		else if(document.getElementById('gender_Female').checked) {
+		  //Female radio button is checked
+			gender="F";
+		}
+		else if(document.getElementById('gender_Other').checked) {
+			//Other radio button is checked
+			gender="O";
+		}
+		
+		var dtToday = new Date();
+		/* Obtain the current date which will be the maximum date input */
+	        var month = dtToday.getMonth() + 1;
+	        var day = dtToday.getDate();
+	        var year = dtToday.getFullYear();
+
+	        if(month < 10)
+			month = '0' + month.toString();
+	        if(day < 10)
+			day = '0' + day.toString();
+	        var maxDate = year + '-' + month + '-' + day;
+
+		/* Debbuging purposes only: */	
+		console.log(username);
+		console.log(birthday);
+		console.log(gender);
+		console.log(maxDate);
+		/* ---------------- */
+
+		if(birthday>maxDate){
+			alert("You inserted an invalid date! Please change!");
+			cleanRegisterFunction();
+			document.getElementById('gender_Male').checked = false;
+			document.getElementById('gender_Female').checked = false;
+			document.getElementById('gender_Other').checked = false;
+		}
+		if(gender="A" || username="" || birthday=""){
+			alert("You didn't fill all the required fields!");
+			cleanRegisterFunction();
+			document.getElementById('gender_Male').checked = false;
+			document.getElementById('gender_Female').checked = false;
+			document.getElementById('gender_Other').checked = false;
+		}
+		if(username != "" && birthday != "" && gender !="A" && birthday<=maxDate){
+		
+			$.ajax({
+				url:"register.php",
+				type:"POST",
+				dataType: "json",
+				data:{
+					b: birthday,
+					u: username,
+					g: gender
+				}
 
 
-	<body>
+			}).done(function(data){
+
+				//document.getElementById("in_username_reg").reset();			
+			});
+		}
+	}
+	/* To clean the input values */
+	function cleanRegisterFunction(){
+		document.getElementById("in_username_reg").value= "";
+		document.getElementById("in_ddn_reg").value= "";
+		
+	}
+	/* To clean the input values from the login form */
+	function cleanLoginFunction(){
+		document.getElementById("in_name_log").value= "";
+	}
+
+	</script>
+	<body style="background-color: lightblue">
 		<div class="container" id="topNav">
 			
 			<nav class="navbar navbar-expand-sm bg-light justify-content-center" id="navTop">
@@ -23,7 +104,7 @@
 					<img src="logo.png" alt="Logo">
 				</a>
 				
-				<form class="form-inline" action="login.php">
+				<form class="form-inline" action="searchBar.php">
 					<input class="form-control srch-marginl" type="text" placeholder="Search.." id="srch-term">
 					<button class="btn btn-primary btn-marginl" type="submit">Search</button>
 				</form>
@@ -71,7 +152,7 @@
 
 	
 		
-		<div class="container">
+		<div class="container" id="rec_add_table">
 		  <h2>Recently Added</h2>           
 		  <table class="table table-hover">
 		    <thead>
@@ -194,6 +275,13 @@
 		    </tbody>
 		  </table>
 		</div>
+
+
+		<div class="container" id="footer">
+			Proudly brought to you by Bruno Ferreira & Gustavo Assunção!
+		</div>
+
+
 		<!-- Login Modal -->
 		<div class="modal" id="LoginModal">
 		  <div class="modal-dialog">
@@ -208,9 +296,9 @@
 		      <!-- Modal body -->
 		      <div class="modal-body">
 			<img class="img-fluid mx-auto d-block" src="user.png" alt="">
-			<form action="" class="form-inline justify-content-center">
+			<form action="login.php" class="form-inline justify-content-center">
 				<div class="log-center">
-					<input type="text" placeholder="Username" id="in_name">
+					<input type="text" placeholder="Username" id="in_name_log">
 				</div>
 				
 			</form>
@@ -219,6 +307,7 @@
 		      <!-- Modal footer -->
 		      <div class="modal-footer">
 			<button type="button" class="btn btn-danger" data-dismiss="modal">Ok!</button>
+	                <button onclick="cleanLoginFunction()" type="button" class="btn btn-danger">Reset!</button>
 		      </div>
 
 		    </div>
@@ -239,19 +328,19 @@
 		      <!-- Modal body -->
 		      <div class="modal-body justify-content-center">
 			<img class="img-fluid mx-auto d-block" src="user.png" alt=""><br>
-			<form action="">
+			<form action="register.php" method="POST">
 				<div class = "reg-center">
 					<label for="text">Username:</label>
-					<input id="in_username_reg" type="text" placeholder="Username">
+					<input id="in_username_reg" type="text" placeholder="Username" maxlength="20">
 				</div>
 				<div class ="reg-center">
-					<input type="radio" name="gender" value="male"> Male
-					<input type="radio" name="gender" value="female"> Female
-					<input type="radio" name="gender" value="other"> Other
+					<input type="radio" name="gender" value="male" id="gender_Male"> Male
+					<input type="radio" name="gender" value="female" id="gender_Female"> Female
+					<input type="radio" name="gender" value="other" id="gender_Other"> Other
 				</div>
 				<div class = "reg-center">
 					<label for="text">Birthday:</label>
-					<input type="date" placeholder="Birthday Date:" id="in_ddn_reg" >
+					<input type="date" placeholder="Birthday Date:" id="in_ddn_reg">
 				</div>
 				
 			</form>
@@ -261,11 +350,11 @@
 		
 			      <div class="modal-footer">
 				<button onclick="registerFunction()" type="button" class="btn btn-danger" data-dismiss="modal">Ok!</button>
+				<button onclick="cleanRegisterFunction()" type="button" class="btn btn-danger">Reset!</button>
 			      </div>
 		     
 		    </div>
 		  </div>
 		</div>
-
 	</body>
 </html>

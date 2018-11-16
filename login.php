@@ -1,4 +1,8 @@
 <?php
+	header("refresh:1;url=main.html");
+
+	
+
 	// Create connection
 	$conn = new mysqli("titan.isr.uc.pt", "gustavomiguelsa", "G9_u7-s2", "dropmusic_db");
 	// Check connection
@@ -18,4 +22,4 @@
 	    echo "0 results";
 	}
 	$conn->close();
->
+?>
