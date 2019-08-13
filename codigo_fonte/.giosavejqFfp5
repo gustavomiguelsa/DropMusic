@@ -1,0 +1,180 @@
+<?php
+	function build_table_shows($array, $array1){
+	    // Start table
+	    $html = '<table class="table table-hover"';
+	    $html .= '<thead>';
+	    // header row
+	    $html .= '<tr>';
+	    /*foreach($array[0] as $key=>$value){
+		    $html .= '<th>' . htmlspecialchars($key) . '</th>';
+		}
+	    $html .= '</tr>';*/
+
+ 	    $html .= '<th>' . "Expected Duration" . '</th>';
+	    $html .= '<th>' . "On" . '</th>';
+	    $html .= '<th>' . "Maximum Occupancy" . '</th>';	
+	    $html .= '<th>' . "Located at" . '</th>';
+	    
+	    $html .= '</tr>';
+	    
+	    $html .= '</thead>';
+
+	    $html .= '<tbody>';
+
+	    // data rows
+	    $increment = 0;
+	    foreach( $array as $key=>$value){
+		$html .= '<tr>';
+		foreach($value as $key2=>$value2){
+		    if ($key2 == "coduracao"){
+			$html .= '<td>' . htmlspecialchars($value2) . " min" .'</td>';
+		    }
+		    if($key2 != "cogrid" && $key2 != "comuid" && $key2 != "coduracao"){
+
+		    	$html .= '<td>' . htmlspecialchars($value2) . '</td>';
+			
+		    }
+	  	    //$html .= '<td>' . htmlspecialchars($array1['$increment']) . '</td>';
+		    
+		    echo $array1[$increment]. "<br>";
+		  
+		}
+		
+		
+		$html .= '</tr>';
+	    }
+		
+	    // finish table and return it
+	    $html .= '</tbody>';
+	    $html .= '</table>';
+	    return $html;
+	}
+	
+	function build_table_recently_added($array){
+	    // Start table
+	    $html = '<table class="table table-hover"';
+	    $html .= '<thead>';
+	    // header row
+	    $html .= '<tr>';
+	    /*foreach($array[0] as $key=>$value){
+		    $html .= '<th>' . htmlspecialchars($key) . '</th>';
+		}
+	    $html .= '</tr>';*/
+	    $html .= '<th>' . "Playlist name" . '</th>';
+	    $html .= '<th>' . "Date" . '</th>';
+	    $html .= '<th>' . "User" . '</th>';
+	    
+	    $html .= '</tr>';
+	    
+	    $html .= '</thead>';
+
+	    $html .= '<tbody>';
+	    // data rows
+	    foreach( $array as $key=>$value){
+		$html .= '<tr>';
+		foreach($value as $key2=>$value2){
+		    $html .= '<td>' . htmlspecialchars($value2) . '</td>';
+		}
+		
+		$html .= '</tr>';
+	    }
+		
+	    // finish table and return it
+	    $html .= '</tbody>';
+	    $html .= '</table>';
+	    return $html;
+	}
+
+	$nome=array();
+
+	$mysqli = new mysqli("192.168.1.89", "gustavomiguelsa", "G9_u7-s2", "dropmusic_db");
+
+	echo "<h1>Recently Added:</h1>";
+
+	$query = "SELECT nome, data_criacao FROM playlist";
+	$incrementer = 1;
+	if ($result = $mysqli->query($query)) {
+		while($row = $result->fetch_assoc()) {
+			//echo "Number: ". $incrementer. " Name: ". $row["nome"]. "<br>";
+			$incrementer = $incrementer + 1;
+			//array_push($nome, $row['nome'], $row['data_criacao']);
+			$nome[] = $row;
+		}
+	}
+
+	//Close MySQL Database connection
+	$mysqli->close();
+
+	echo build_table_recently_added($nome);
+
+	echo "<h1>Shows Playing This Week:</h1>";
+	
+	$shows = array();
+	$shows_by = array();
+	$mysqli1 = new mysqli("192.168.1.89", "gustavomiguelsa", "G9_u7-s2", "dropmusic_db");
+	$incrementer = 1;
+	$query = "SELECT co.duracao_min coduracao, co.data codata, co.lotacao colotacao, co.local colocal, co.musico_musico_id comuid, co.gr_musical_grupo_id cogrid FROM concerto co";
+	if ($result = $mysqli1->query($query)) {
+		while($row = $result->fetch_assoc()) {
+			
+			if($row["comuid"] != NULL){	//If musician Id not NULL, then concert belongs to musician
+
+				
+				$inner_query = "SELECT mu.nome munome, mu.musico_id muid FROM musico mu, concerto co 
+						WHERE co.musico_musico_id=mu.musico_id";
+				if ($inner_result = $mysqli1->query($inner_query)) {
+					while($inner_row = $inner_result->fetch_assoc()) {
+						$muid = $inner_row["muid"];
+						//$shows_by[] = $inner_row["munome"];
+						//echo "<h1>Concert by <a href='#goMusician' id='sel_musician' onclick='musicianFunction($muid)'>" . $inner_row["munome"] . "</a></h1><br>";
+						
+					}
+				}
+
+			} else {			//Otherwise it belongs to a band
+
+				$inner_query = "SELECT gr.nome grnome, gr.grupo_id grid FROM gr_musical gr, concerto co 
+						WHERE co.gr_musical_grupo_id=gr.grupo_id";
+				if ($inner_result = $mysqli1->query($inner_query)) {
+					while($inner_row = $inner_result->fetch_assoc()) {
+						$grid = $inner_row["grid"];
+						//$shows_by[] = $inner_row["grnome"];
+						//echo "<h1>Concert by <a href='#goBand' id='sel_band' onclick='bandFunction($grid)'>" . $inner_row["grnome"] . "</a></h1><br>";
+					}
+				}
+			}
+			if($row["comuid"] != "" && $row["cogrid"] == ""){
+				echo "Inside 1<br>";
+				$query1 = "SELECT nome FROM musico WHERE musico_id =$muid";
+				if ($result1 = $mysqli1->query($query1)) {
+					while($row1 = $result1->fetch_assoc()) {
+						$shows_by[] = $row1["nome"];
+						
+						//print_r($nomew);
+					}
+				}
+			}
+			if($row["comuid"] == "" && $row["cogrid"] != ""){
+				echo "Inside 2<br>";
+				$query1 = "SELECT nome FROM gr_musical WHERE grupo_id =$grid";
+				if ($result1 = $mysqli1->query($query1)) {
+					while($row1 = $result1->fetch_assoc()) {
+						$shows_by[] = $row1["nome"];
+						//print_r($nomew);
+					}
+				}
+			}
+			$shows[] = $row;
+
+		}
+	}
+	print_r($shows);
+	print_r($shows_by);
+	echo "<br>";
+	
+	//print_r(array_merge($shows,$shows_by));
+	//Close MySQL Database connection
+	$mysqli1->close();
+
+	echo build_table_shows($shows, $shows_by);
+?>

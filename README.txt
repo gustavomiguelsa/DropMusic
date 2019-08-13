@@ -1,0 +1,8 @@
+-------------------------------------------------------------------
+------------------------     DropMusic     ------------------------
+----           Bases de Dados   ---------   2018/2019          ----
+---- Autores: Bruno Ferreira   -> brunomfferreira@hotmail.com  ----
+----	      Gustavo Assun‹o -> gustavomiguelsa@gmail.com    ----
+----    Caso falte algo, ou exista alguma dœvida, por favor    ----
+----                   contactar os autores.                   ----
+-------------------------------------------------------------------

@@ -1,0 +1,75 @@
+body{
+	background-color : lightblue ;
+}
+
+#topNav{
+	padding-top : 25px ;
+}
+
+#navTop{
+	border-radius : 10px ;
+	
+}
+
+#navMid{
+	margin-top: 10px;
+	border-radius : 10px ;
+}
+
+#midNav{
+	padding-bottom: 50px;
+}
+
+#rec_add_table{
+	padding-top: 35px;
+}
+
+#srch-term {
+  width: 500px;
+}
+
+.modal-body {
+	overflow-y: auto;
+}
+.form-inline {
+  width: 0px;
+}
+/* Space between search bar and search butto */
+.srch-marginl{
+  margin-left: 180px;
+}
+/* Space between buttons*/
+.btn-marginl {
+  margin-left: 10px;
+
+}
+/* Centering the register modal body */
+.reg-center {
+  padding: 5px;
+  text-align: center;
+  margin:auto;
+}
+ /* Centering the login modal body */
+.log-center {
+  padding: 10px;
+  text-align: center;
+  margin:auto;
+}
+
+#cTop{
+	width: 550px;
+	border-radius : 7px;
+	margin: auto;
+}
+
+.column {
+    float: left;
+    width: 50%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}

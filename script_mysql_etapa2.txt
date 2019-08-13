@@ -1,0 +1,195 @@
+CREATE TABLE musica (
+	musica_id	 int AUTO_INCREMENT,
+	nome		 varchar(255) NOT NULL,
+	genero		 varchar(255) NOT NULL,
+	link		 varchar(512) NOT NULL,
+	data_lancamento date NOT NULL,
+	letra		 text NOT NULL,
+	PRIMARY KEY(musica_id)
+);
+
+CREATE TABLE album (
+	album_id		 bigint AUTO_INCREMENT,
+	nome		 varchar(255) NOT NULL,
+	data_lancamento	 date NOT NULL,
+	gr_musical_grupo_id int,
+	musico_musico_id	 int,
+	PRIMARY KEY(album_id)
+);
+
+CREATE TABLE musico (
+	musico_id int AUTO_INCREMENT,
+	nome	 varchar(128) NOT NULL,
+	ddn	 date NOT NULL,
+	bio	 text NOT NULL,
+	PRIMARY KEY(musico_id)
+);
+
+CREATE TABLE gr_musical (
+	grupo_id int AUTO_INCREMENT,
+	nome	 varchar(128) NOT NULL,
+	historia text,
+	PRIMARY KEY(grupo_id)
+);
+
+CREATE TABLE playlist (
+	playlist_id	 int AUTO_INCREMENT,
+	nome		 varchar(255) NOT NULL,
+	pub_priv		 boolean NOT NULL,
+	data_criacao	 date NOT NULL,
+	utilizador_user_id int NOT NULL,
+	PRIMARY KEY(playlist_id)
+);
+
+CREATE TABLE critica (
+	titulo		 varchar(255) NOT NULL,
+	justificacao	 text NOT NULL,
+	pontuacao		 int NOT NULL,
+	utilizador_user_id int NOT NULL,
+	album_album_id	 bigint NOT NULL
+);
+
+CREATE TABLE utilizador (
+	user_id	 int AUTO_INCREMENT,
+	nome	 varchar(128) NOT NULL,
+	is_editor boolean NOT NULL DEFAULT 0,
+	sexo	 char(1) NOT NULL,
+	ddn	 date NOT NULL,
+	PRIMARY KEY(user_id)
+);
+
+CREATE TABLE editora (
+	editora_id int AUTO_INCREMENT,
+	nome	 varchar(256) NOT NULL,
+	morada	 varchar(512) NOT NULL,
+	PRIMARY KEY(editora_id)
+);
+
+CREATE TABLE concerto (
+	concerto_id	 int AUTO_INCREMENT,
+	duracao_min	 int NOT NULL,
+	data		 date NOT NULL,
+	lotacao		 int NOT NULL,
+	local		 varchar(512) NOT NULL,
+	musico_musico_id	 int,
+	gr_musical_grupo_id int,
+	PRIMARY KEY(concerto_id)
+);
+
+CREATE TABLE compositor (
+	compositor_id int AUTO_INCREMENT,
+	nome		 varchar(128) NOT NULL,
+	ddn		 date NOT NULL,
+	bio		 text,
+	PRIMARY KEY(compositor_id)
+);
+
+CREATE TABLE periodo (
+	inicio		 date NOT NULL,
+	fim		 date NOT NULL,
+	gr_musical_grupo_id int NOT NULL
+);
+
+CREATE TABLE partilha (
+	partilha_id	 int AUTO_INCREMENT,
+	receptor_id	 int NOT NULL,
+	item_id		 int NOT NULL,
+	item_type	 varchar(32) NOT NULL,
+	utilizador_user_id int NOT NULL,
+	PRIMARY KEY(partilha_id)
+);
+
+CREATE TABLE utilizador_musica (
+	utilizador_user_id int,
+	musica_musica_id	 int,
+	PRIMARY KEY(utilizador_user_id,musica_musica_id)
+);
+
+CREATE TABLE musico_musica (
+	musico_musico_id int,
+	musica_musica_id int,
+	PRIMARY KEY(musico_musico_id,musica_musica_id)
+);
+
+CREATE TABLE musico_editora (
+	musico_musico_id	 int,
+	editora_editora_id int NOT NULL,
+	PRIMARY KEY(musico_musico_id)
+);
+
+CREATE TABLE compositor_musico (
+	compositor_compositor_id int,
+	musico_musico_id	 int UNIQUE NOT NULL,
+	PRIMARY KEY(compositor_compositor_id)
+);
+
+CREATE TABLE compositor_musica (
+	compositor_compositor_id int,
+	musica_musica_id	 int,
+	PRIMARY KEY(compositor_compositor_id,musica_musica_id)
+);
+
+CREATE TABLE gr_musical_editora (
+	gr_musical_grupo_id int,
+	editora_editora_id	 int NOT NULL,
+	PRIMARY KEY(gr_musical_grupo_id)
+);
+
+CREATE TABLE playlist_musica (
+	playlist_playlist_id int,
+	musica_musica_id	 int,
+);
+
+CREATE TABLE musico_gr_musical (
+	musico_musico_id	 int,
+	gr_musical_grupo_id int,
+	PRIMARY KEY(musico_musico_id,gr_musical_grupo_id)
+);
+
+CREATE TABLE album_musica (
+	album_album_id	 bigint,
+	musica_musica_id int,
+	PRIMARY KEY(album_album_id,musica_musica_id)
+);
+
+ALTER TABLE musica ADD CONSTRAINT gen_cr CHECK (genero='Rock' or genero='Pop' or genero='Hip Hop' or genero='Folk' or genero='Jazz' or genero='Funk' or genero='Opera' or genero='R&B' or genero='Soul' or genero='Classic' or genero='Country' or genero='Electronic' or genero='House' or genero='Religious' or genero='Kuduro' or genero='Other');
+ALTER TABLE musica ADD CONSTRAINT date_cr CHECK (data_lancamento >= date '1000-01-01');
+ALTER TABLE album ADD CONSTRAINT album_fk1 FOREIGN KEY (gr_musical_grupo_id) REFERENCES gr_musical(grupo_id);
+ALTER TABLE album ADD CONSTRAINT album_fk2 FOREIGN KEY (musico_musico_id) REFERENCES musico(musico_id);
+ALTER TABLE album ADD CONSTRAINT date_cr CHECK (data_lancamento >= date '1000-01-01');
+ALTER TABLE musico ADD CONSTRAINT ddn CHECK (ddn >= date '1000-01-01');
+ALTER TABLE playlist ADD CONSTRAINT playlist_fk1 FOREIGN KEY (utilizador_user_id) REFERENCES utilizador(user_id);
+ALTER TABLE critica ADD CONSTRAINT critica_fk1 FOREIGN KEY (utilizador_user_id) REFERENCES utilizador(user_id);
+ALTER TABLE critica ADD CONSTRAINT critica_fk2 FOREIGN KEY (album_album_id) REFERENCES album(album_id);
+ALTER TABLE critica ADD CONSTRAINT score_cr CHECK (pontuacao between 1 and 10);
+ALTER TABLE utilizador ADD CONSTRAINT ddn_cr CHECK (ddn >= date '1900-01-01' );
+ALTER TABLE concerto ADD CONSTRAINT concerto_fk1 FOREIGN KEY (musico_musico_id) REFERENCES musico(musico_id);
+ALTER TABLE concerto ADD CONSTRAINT concerto_fk2 FOREIGN KEY (gr_musical_grupo_id) REFERENCES gr_musical(grupo_id);
+ALTER TABLE concerto ADD CONSTRAINT data_cr CHECK (data >= date '1000-01-01' );
+ALTER TABLE concerto ADD CONSTRAINT dura_lota_cr CHECK (duracao_min > 1 and lotacao > 1);
+ALTER TABLE compositor ADD CONSTRAINT ddn_cr CHECK (ddn >= date '1000-01-01');
+ALTER TABLE periodo ADD CONSTRAINT periodo_fk1 FOREIGN KEY (gr_musical_grupo_id) REFERENCES gr_musical(grupo_id);
+ALTER TABLE periodo ADD CONSTRAINT inicio_cr CHECK (inicio >= date '1000-01-01');
+ALTER TABLE periodo ADD CONSTRAINT fim_cr CHECK (fim >= date '1000-01-01' );
+ALTER TABLE periodo ADD CONSTRAINT itof_cr CHECK (inicio <= fim);
+ALTER TABLE partilha ADD CONSTRAINT partilha_fk1 FOREIGN KEY (utilizador_user_id) REFERENCES utilizador(user_id);
+ALTER TABLE partilha ADD CONSTRAINT rec_item_cr CHECK (receptor_id >= 0 and item_id >=0);
+ALTER TABLE utilizador_musica ADD CONSTRAINT utilizador_musica_fk1 FOREIGN KEY (utilizador_user_id) REFERENCES utilizador(user_id);
+ALTER TABLE utilizador_musica ADD CONSTRAINT utilizador_musica_fk2 FOREIGN KEY (musica_musica_id) REFERENCES musica(musica_id);
+ALTER TABLE musico_musica ADD CONSTRAINT musico_musica_fk1 FOREIGN KEY (musico_musico_id) REFERENCES musico(musico_id);
+ALTER TABLE musico_musica ADD CONSTRAINT musico_musica_fk2 FOREIGN KEY (musica_musica_id) REFERENCES musica(musica_id);
+ALTER TABLE musico_editora ADD CONSTRAINT musico_editora_fk1 FOREIGN KEY (musico_musico_id) REFERENCES musico(musico_id);
+ALTER TABLE musico_editora ADD CONSTRAINT musico_editora_fk2 FOREIGN KEY (editora_editora_id) REFERENCES editora(editora_id);
+ALTER TABLE compositor_musico ADD CONSTRAINT compositor_musico_fk1 FOREIGN KEY (compositor_compositor_id) REFERENCES compositor(compositor_id);
+ALTER TABLE compositor_musico ADD CONSTRAINT compositor_musico_fk2 FOREIGN KEY (musico_musico_id) REFERENCES musico(musico_id);
+ALTER TABLE compositor_musica ADD CONSTRAINT compositor_musica_fk1 FOREIGN KEY (compositor_compositor_id) REFERENCES compositor(compositor_id);
+ALTER TABLE compositor_musica ADD CONSTRAINT compositor_musica_fk2 FOREIGN KEY (musica_musica_id) REFERENCES musica(musica_id);
+ALTER TABLE gr_musical_editora ADD CONSTRAINT gr_musical_editora_fk1 FOREIGN KEY (gr_musical_grupo_id) REFERENCES gr_musical(grupo_id);
+ALTER TABLE gr_musical_editora ADD CONSTRAINT gr_musical_editora_fk2 FOREIGN KEY (editora_editora_id) REFERENCES editora(editora_id);
+ALTER TABLE playlist_musica ADD CONSTRAINT playlist_musica_fk1 FOREIGN KEY (playlist_playlist_id) REFERENCES playlist(playlist_id);
+ALTER TABLE playlist_musica ADD CONSTRAINT playlist_musica_fk2 FOREIGN KEY (musica_musica_id) REFERENCES musica(musica_id);
+ALTER TABLE musico_gr_musical ADD CONSTRAINT musico_gr_musical_fk1 FOREIGN KEY (musico_musico_id) REFERENCES musico(musico_id);
+ALTER TABLE musico_gr_musical ADD CONSTRAINT musico_gr_musical_fk2 FOREIGN KEY (gr_musical_grupo_id) REFERENCES gr_musical(grupo_id);
+ALTER TABLE album_musica ADD CONSTRAINT album_musica_fk1 FOREIGN KEY (album_album_id) REFERENCES album(album_id);
+ALTER TABLE album_musica ADD CONSTRAINT album_musica_fk2 FOREIGN KEY (musica_musica_id) REFERENCES musica(musica_id);
+

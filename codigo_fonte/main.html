@@ -1,0 +1,354 @@
+<?php session_start(); ?>
+<!DOCTYPE html>
+<html lang="eng" onload="javascript:logoutFunction()">
+	<head onload="javascript:logoutFunction()">
+		<title>DropMusic</title>
+		<link rel="icon" href="favicon.png">
+		<meta charset="UTF-8">
+		<meta name="description" content="A uni project...">
+		<meta name="author" content="Bruno Ferreira and Gustavo Assunção">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="myStyle.css">
+	</head>
+
+	<script type="text/javascript">
+
+	$(document).ready(function() {
+		$('#midNav').load('landing_page_tables.php');	
+		/* To load the search results on the main page */
+		 $('#srch-button').on('click', function() {
+			var search_term=document.getElementById("srch-term").value;
+			var search_option=document.getElementById("srch-Select").value;
+
+			var srch_term_clean = search_term.replace(/ /g, "+");	//Replacing is necessary (replace ' ' with '+') since string will
+										//be passed through urldecode() (see doc) when using $_GET in .php
+
+			if(search_term != ""){
+				$('#midNav').load('searchBar.php?srch-term=' + srch_term_clean + '&srch-Select=' + search_option);
+			}
+			// Prevent default submission of the form after clicking on the submit button. 
+        		return false;
+
+    		});
+
+		$(window).load(function(){ /*This allows to execute your code after the  page is rendered fully */ 
+		    logoutFunction();
+		})
+				
+	});
+
+	function indexer(par) {
+
+		$('#midNav').load('indexerPage.php?identifier=' + par);
+		return false;
+	}
+
+	function clearMain(){
+		//$('#log').load('login.php');
+		$('#midNav').load('landing_page_tables.php');	
+		return false;
+	}
+
+	function zoneFunction(){
+		$('#midNav').load('myZone.php');
+	}
+
+	function addFunction(choice){
+		$('#midNav').load('addItem.php?choice=' + choice);
+	}
+
+	function removeFunction(){
+		$('#midNav').load('removeItem.php');
+	}
+
+	function setSession(){
+		$("#trol").load('setter.php');
+	}
+
+	</script>
+		
+	<script type="text/javascript">
+	
+	function loginFunction(){
+		var username=document.getElementById("in_name_log").value;
+
+		if (username != ""){
+			$("#log").load('login.php?unome=' + username);
+		} else {
+			alert("Please insert your username!");
+		}
+	}
+	
+	function logoutFunction(){
+
+		/*$('#lg_button').show();
+		$('#rg_button').show();
+		$('#zone_button').hide();
+		$('#logout_button').hide();*/
+		$('#log').load('logout.php');
+	}
+
+	window.onbeforeunload = function() {
+		logoutFunction();
+		return null;
+	}
+
+
+	window.onload(function(){ /*This allows to execute your code after the  page is rendered fully */ 
+	    $('#log').load('logout.php');
+	})
+
+	$(document).ready( function () {
+		logoutFunction();
+	});
+				
+
+	/* Calls the register.php with the data given by the user */
+	function registerFunction(){
+		var username=document.getElementById("in_username_reg").value;
+		var birthday=document.getElementById("in_ddn_reg").value;
+		var gender="A";
+		if(document.getElementById('gender_Male').checked) {
+		  //Male radio button is checked
+			gender="M";
+		}
+		else if(document.getElementById('gender_Female').checked) {
+		  //Female radio button is checked
+			gender="F";
+		}
+		else if(document.getElementById('gender_Other').checked) {
+			//Other radio button is checked
+			gender="O";
+		}
+		
+		var dtToday = new Date();
+		/* Obtain the current date which will be the maximum date input */
+	        var month = dtToday.getMonth() + 1;
+	        var day = dtToday.getDate();
+	        var year = dtToday.getFullYear();
+
+	        if(month < 10)
+			month = '0' + month.toString();
+	        if(day < 10)
+			day = '0' + day.toString();
+	        var maxDate = year + '-' + month + '-' + day;
+
+		/* Debbuging purposes only: */	
+		/*console.log(username);
+		console.log(birthday);
+		console.log(gender);
+		console.log(maxDate);*/
+		/* ---------------- */
+
+		if(birthday>maxDate && birthday < '1900-01-01'){
+			alert("You inserted an invalid date! Please change!");
+			cleanRegisterFunction();
+			document.getElementById('gender_Male').checked = false;
+			document.getElementById('gender_Female').checked = false;
+			document.getElementById('gender_Other').checked = false;
+		}
+		if(gender=="A" || username=="" || birthday==""){
+			alert("You didn't fill all the required fields!");
+			cleanRegisterFunction();
+			document.getElementById('gender_Male').checked = false;
+			document.getElementById('gender_Female').checked = false;
+			document.getElementById('gender_Other').checked = false;
+		}
+		if(username != "" && birthday != "" && gender !="A" && birthday<=maxDate){
+			$("#midNav").load('register.php', {'b': birthday, 'u': username, 'g': gender});
+			
+		}
+	}
+	/* To clean the input values */
+	function cleanRegisterFunction(){
+		document.getElementById("in_username_reg").value= "";
+		document.getElementById("in_ddn_reg").value= "";
+		
+	}
+	/* To clean the input values from the login form */
+	function cleanLoginFunction(){
+		document.getElementById("in_name_log").value= "";
+	}
+
+	function showuser(){
+		$('#midNav').load('showuser.php');
+	}
+
+	
+
+	function yesnoCheck() {
+	    if (document.getElementById('yesCheck').checked) {
+		document.getElementById('ifYes').style.visibility = 'visible';
+	    }
+	    else document.getElementById('ifYes').style.visibility = 'hidden';
+
+	}
+
+	</script>
+
+	<body style="background-color: lightblue" onload="text/javascript:logoutFunction()" onreload="text/javascript:logoutFunction()">
+		<div class="container" id="topNav">
+			
+			<nav class="navbar navbar-expand-sm bg-light justify-content-center" id="navTop">
+				<a class="navbar-brand" href="#home" onclick="$('#midNav').load('landing_page_tables.php');">
+					<img src="logo.png" alt="Logo" style="position: relative; left: -20px; border-radius: 10%;">
+				</a>
+				
+				<form class="form-inline" style="width:800px; left: 40px;">
+
+					<select id="srch-Select" style="border: none; width: 170px; height:37px; position:absolute; top:44px; left: 250px; color: white; background-color: #3E77EA;">
+						<option value="musica">By Name</option>
+						<option value="musico">By Musician</option>
+						<option value="gr_musical">By Band</option>
+						<option value="album">By Album</option>
+						<option value="genero">By Genre</option>
+						<optgroup value="data" label="By Release Date">
+							<option value="Y">By Year</option>
+							<option value="YM">By Year/Month</option>
+							<option value="YMD">By Year/Month/Day</option>
+						</optgroup>
+						<option value="pontuacao">By Review Score</option>
+					</select>
+					
+					<input class="form-control srch-marginl" type="text" placeholder="Search.." id="srch-term" style="position: relative; left: -20px;">
+					<button class="btn btn-primary btn-marginl" type="submit" id="srch-button" style="position:relative; left:-28px; width:100px;">Search</button>
+				</form>
+			</nav>
+			
+			<nav class="navbar navbar-expand-sm bg-light justify-content-center" id="navMid">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="#home" onclick="$('#midNav').load('landing_page_tables.php');">Home</a>
+					</li>	
+					<li class="nav-item">
+						<a class="nav-link" href="#about" onclick="$('#midNav').load('about.php');">About</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="dummy.pdf" download>Help</a>
+					</li>
+					<li class="nav-item dropdown">
+					  <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown" onclick="">
+						View
+					  </a>
+					  <div class="dropdown-menu" id="drpdwn-elem">
+						<a class="dropdown-item" href="#songIndexer" onclick="indexer('musica')">Songs</a>
+						<a class="dropdown-item" href="#albumIndexer" onclick="indexer('album')">Albums</a>
+						<a class="dropdown-item" href="#reviewIndexer" onclick="indexer('critica')">Reviews</a>
+						<a class="dropdown-item" href="#playlistIndexer" onclick="indexer('playlist')">Playlists</a>
+						<a class="dropdown-item" href="#bandIndexer" onclick="indexer('gr_musical')">Bands</a>
+						<a class="dropdown-item" href="#musicianIndexer" onclick="indexer('musico')">Musicians</a>
+						<a class="dropdown-item" href="#composerIndexer" onclick="indexer('compositor')">Composers</a>
+						<a class="dropdown-item" href="#concertIndexer" onclick="indexer('concerto')">Concerts</a>
+						<a class="dropdown-item" href="#reccomIndexer" onclick="indexer('editora')">Record Company</a>
+					  </div>
+					</li>
+				</ul>
+				<div class="navbar-nav" id="log">
+	
+					<button type="button" class="btn btn-primary " data-toggle="modal" id="rg_button" data-target="#RegisterModal">Register
+</button>
+					<button type="button" class="btn btn-primary btn-marginl" id="lg_button" data-toggle="modal" data-target="#LoginModal">
+  Login
+</button>				
+				
+				</div>
+			</nav>
+			
+		</div>
+		
+
+		<div class="container" id="midNav">
+			
+		</div>
+		
+<!-- Button to see all the users on the db -->
+<!--		<button onclick="showuser()" type="button" class="btn btn-danger">Reset!</button> -->
+
+		
+		<div class="container" id="bottomNav">
+			<nav class="navbar navbar-expand-sm bg-light justify-content-center" type="text" style="height: 20px; width:350px; border-radius:20px; position:fixed; bottom:5px;" id="navBottom"><a href='https://www.youtube.com/watch?v=dQw4w9WgXcQ' style="all:unset;" target="_blank">
+				By Bruno Ferreira & Gustavo Assunção!
+			</a></nav>
+		</div>
+
+
+		<!-- Login Modal -->
+		<div class="modal fade" id="LoginModal">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+
+		      <!-- Modal Header -->
+		      <div class="modal-header">
+			<h4 class="modal-title">Login</h4>
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+		      </div>
+
+		      <!-- Modal body -->
+		      <div class="modal-body" style="height: 200px;">
+			<img class="img-fluid mx-auto d-block" src="user.png" alt="">
+			<form class="form-inline justify-content-center">
+				<div class="log-center" style="position: absolute; top: 150px; left: 150px;">
+					<input type="text" placeholder="Username" id="in_name_log">
+				</div>
+				
+			</form>
+		      </div>
+
+		      <!-- Modal footer -->
+		      <div class="modal-footer">
+			<button onclick= "loginFunction()" type="button" class="btn btn-danger" data-dismiss="modal">Ok!</button>
+	                <button onclick="cleanLoginFunction()" type="button" class="btn btn-danger">Reset!</button>
+		      </div>
+
+		    </div>
+		  </div>
+		</div>
+		
+		<!-- Register Modal -->
+		<div class="modal fade" id="RegisterModal">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+
+		      <!-- Modal Header -->
+		      <div class="modal-header">
+			<h4 class="modal-title">Register</h4>
+			<button type="button" class="close" data-dismiss="modal">&times;</button>
+		      </div>
+
+		      <!-- Modal body -->
+		      <div class="modal-body justify-content-center">
+			<img class="img-fluid mx-auto d-block" src="user.png" alt=""><br>
+			<form action="register.php" method="POST">
+				<div class = "reg-center">
+					<label for="text">Username:</label>
+					<input id="in_username_reg" type="text" placeholder="Username" maxlength="20">
+				</div>
+				<div class ="reg-center">
+					<input type="radio" name="gender" value="male" id="gender_Male"> Male
+					<input type="radio" name="gender" value="female" id="gender_Female"> Female
+					<input type="radio" name="gender" value="other" id="gender_Other"> Other
+				</div>
+				<div class = "reg-center">
+					<label for="text">Birthday:</label>
+					<input type="date" placeholder="Birthday Date:" id="in_ddn_reg">
+				</div>
+				
+			</form>
+		      </div>
+
+		      <!-- Modal footer -->
+			      <div class="modal-footer">
+				<button onclick="registerFunction()" type="button" class="btn btn-danger" data-dismiss="modal">Ok!</button>
+				<button onclick="cleanRegisterFunction()" type="button" class="btn btn-danger">Reset!</button>
+			      </div>
+		     
+		    </div>
+		  </div>
+		</div>
+		<div id="trol"></div>
+	</body>
+</html>
